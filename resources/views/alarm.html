@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>timer</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<style>
+		span.label{display: inline-block;width: 60px;}
+		span.label + input{width: 40px;text-align: center;outline: none;}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<video id="vid" width="320" height="240">
+		  <source src="movie.mp4" type="video/mp4">
+		</video>
+		<br>
+		<i style="font-size:24px" class="fa">&#xf011;</i>
+		<h4>Set time</h4>
+		<span class="label">Hours:</span><input id="th" type="number" min="0" max="23"><br>
+	  <span class="label">Minutes:</span><input id="tm" type="number" min="0" max="59"><br>
+	</div>
+	<script type="text/javascript">
+		let ok = false
+		let v = document.getElementById('vid')
+
+		document.getElementsByTagName('i')[0].onclick = function(e) {
+			ok = !ok
+			e.target.style.color = ok ? 'red' : 'blue'
+			if(!ok) v.pause()
+		}
+		let timer = setInterval(() => {
+			if (ok){
+				let th = parseInt(document.getElementById('th').value) || 0
+				let tm = parseInt(document.getElementById('tm').value) || 0
+				let t = new Date()
+				let h = t.getHours()
+				let m = t.getMinutes()
+				if(h == th && m == tm){
+					v.play()
+				}
+				else v.pause()
+			}
+			else {
+				v.pause()
+			}
+		}, 10000)
+	</script>
+</body>
+</html>
